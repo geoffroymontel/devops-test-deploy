@@ -3,13 +3,24 @@ node basenode {
   $app_ip_address = "33.33.13.3"
   $db_ip_address = "33.33.13.4"
   $worker_ip_address = "33.33.13.5"
-  $app_name = "instatube"
+  $app_name = "devops-test-app"
 
-  user { 'deployer':
-    ensure     => present,
-    gid        => 'admin',
-    home => '/home/deployer',
-    managehome => true,
+  # define init stage
+  stage { 'init': before => Stage['main'] }
+
+  class { 'ubuntu-update':
+    stage => 'init'
+  }
+
+  class { 'users': 
+    stage => 'init',
+    require => Class['ubuntu-update']
+  }
+
+  class { 'ruby': 
+    version => '1.9.3-p392',
+    stage   => 'init',
+    require => Class['users']
   }
 }
 
