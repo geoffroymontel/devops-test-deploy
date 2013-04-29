@@ -21,7 +21,7 @@ class nginx {
   file { 'nginx.conf':
     path      => '/etc/nginx/nginx.conf',
     ensure    => file,
-    require   => [Package['nginx'], User['deployer']],
+    require   => Package['nginx'],
     source    => "puppet:///modules/nginx/nginx.conf",
     owner     => deployer,
     group     => admin,
@@ -31,7 +31,7 @@ class nginx {
   file { 'app.conf':
     path      => "/var/www/${app_name}/shared/config/nginx.conf",
     ensure    => file,
-    require   => [Package['nginx'], User['deployer']],
+    require   => Package['nginx'],
     content   => template("nginx/app.conf.erb"),
     owner     => deployer,
     group     => admin,

@@ -13,7 +13,6 @@ class railsapp {
     "/var/www/${app_name}/shared",
     "/var/www/${app_name}/shared/config"]:
     ensure    => directory,
-    require   => User['deployer'],
     owner     => deployer,
     group     => admin,
     mode      => 755

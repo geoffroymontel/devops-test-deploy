@@ -27,7 +27,7 @@ class unicorn {
   file { "unicorn_${app_name}.rb":
     path      => "/var/www/${app_name}/shared/config/unicorn.rb",
     ensure    => file,
-    require   => [Package['unicorn'], User['deployer']],
+    require   => Package['unicorn'],
     content   => template("unicorn/unicorn.rb.erb"),
     owner     => deployer,
     group     => admin,
@@ -37,7 +37,7 @@ class unicorn {
   file { "unicorn_${app_name}.sh":
     path      => "/var/www/${app_name}/shared/config/unicorn.sh",
     ensure    => file,
-    require   => [Package['unicorn'], User['deployer']],
+    require   => Package['unicorn'],
     content   => template("unicorn/unicorn.sh.erb"),
     owner     => deployer,
     group     => admin,

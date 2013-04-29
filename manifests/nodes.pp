@@ -22,19 +22,24 @@ node basenode {
     stage   => 'init',
     require => Class['users']
   }
+
+  class { 'puppet':
+    stage => 'init',
+    require => Class['ruby']
+  }
 }
 
-node "web" inherits basenode {
+node 'web' inherits basenode {
   include railsapp
   include nginx
 }
 
-node "app" inherits basenode {
+node 'app1', 'app2' inherits basenode {
   include railsapp
   include nodejs
   include unicorn
 }
 
-node "db" inherits basenode {
+node 'db' inherits basenode {
 #  include postgresql
 }
