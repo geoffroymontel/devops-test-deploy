@@ -22,11 +22,6 @@ node basenode {
     stage   => 'init',
     require => Class['users']
   }
-
-  class { 'puppet':
-    stage => 'init',
-    require => Class['ruby']
-  }
 }
 
 node 'web' inherits basenode {
@@ -41,5 +36,40 @@ node 'app1', 'app2' inherits basenode {
 }
 
 node 'db' inherits basenode {
-#  include postgresql
+  include railsapp
+}
+
+node 'test' {
+  # define init stage
+  stage { 'init': before => Stage['main'] }
+
+  class { 'ubuntu-update':
+    stage => 'init'
+  }
+
+  class { 'users': 
+    stage => 'init',
+    require => Class['ubuntu-update']
+  }
+  
+  class { 'postgresql::server':
+    config_hash => {
+      'manage_redhat_firewall'     => true,
+      'listen_addresses'           => '*',
+    }
+  }
+
+  postgresql::pg_hba_rule { 'allow application network to access app database':
+    description => "Open up postgresql for access from 33.33.13.0/24",
+    type => 'host',
+    database => 'devops-test-app_production',
+    user => 'devops-test-app',
+    address => '33.33.13.0/24',
+    auth_method => 'trust',
+  }
+
+  postgresql::db { 'devops-test-app_production':
+    user     => 'devops-test-app',
+    password => 'password'
+  }
 }

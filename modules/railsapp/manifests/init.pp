@@ -21,4 +21,13 @@ class railsapp {
   package { "bundler":
     provider  => gem
   }
+
+  file {
+    "/var/www/${app_name}/shared/config/database.yml":
+    ensure  => present,
+    owner   => deployer,
+    group   => admin,
+    mode    => 600,
+    content => template("railsapp/database.yml.erb"),
+  }
 }

@@ -7,7 +7,7 @@ class unicorn {
   }
 
   service { "unicorn_${app_name}":
-    ensure    => running,
+    ensure    => stopped,
     enable    => true,
     hasstatus => true,
     start     => "/etc/init.d/unicorn_${app_name} start",
