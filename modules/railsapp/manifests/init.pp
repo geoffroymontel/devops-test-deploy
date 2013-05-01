@@ -9,7 +9,6 @@ class railsapp {
   file {
     ["/var/www",
     "/var/www/${app_name}",
-    "/var/www/${app_name}/current",
     "/var/www/${app_name}/shared",
     "/var/www/${app_name}/shared/config"]:
     ensure    => directory,
@@ -20,6 +19,10 @@ class railsapp {
 
   package { "bundler":
     provider  => gem
+  }
+
+  package { 'libpq-dev':
+    ensure  => installed
   }
 
   file {

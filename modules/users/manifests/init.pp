@@ -4,7 +4,6 @@ class users {
     gid         => 'admin',
     home        => '/home/deployer',
     managehome  => true,
-    password    => 'm0nst3rz',
     shell       => '/bin/bash'
   }  
 

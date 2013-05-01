@@ -9,68 +9,40 @@ The goal is to be able to deploy a Rails app to a cluster of machines consisting
 
 And more to come & test
 
+## Prerequisites
+* Install Virtualbox
+* Install Vagrant
+
 ## Doing a base image with Vagrant
 
-First, you have to make an Ubuntu 12.04TLS image with rvm, ruby, and puppet installed.
-I called it `precise64_with_rvm_ruby193_puppet`
+First, you have to make an Ubuntu 12.04TLS image with ruby 1.9.3 and puppet 3.1 installed.
+To do that :
 
-* Update Linux
-```
-sudo apt-get update
-sudo apt-get upgrade
-```
-
-* Install Git and build-essentials
-```
-sudo apt-get install build-essential git-core curl
-```
-
-* Install RVM
-```
-curl -L get.rvm.io | bash -s stable
-```
-
-Read the output to know how to start using rvm.
-
-Then install what 
-```
-rvm requirements
-```
-and 
-```
-rvm notes
-```
-say
-
-* Install Ruby
-```
-rvm install ruby-1.9.3-p392
-rvm use 1.9.3 --default
-ruby -v
-``
-
-* Install Puppet
-
-```
-wget http://apt.puppetlabs.com/puppetlabs-release-precise.deb
-sudo dpkg -i puppetlabs-release-precise.deb
-sudo apt-get install puppet
-```
-
-## Starting the instances locally with Vagrant
+1. download a Ubuntu 12.04 TLS (Precise) box
 ```bash
-vagrant up
+vagrant box add lucid64 http://files.vagrantup.com/precise64.box
 ```
 
-## Installing the software stack
-You have to log in to each instance and run puppet
+2. Create your own base box. Basebox is a Precise64 box provisionned with `preinstall.sh`
 
-For instance, to install on the Web instance :
-
+```bash
+vagrant up basebox
+vagrant package basebox
+vagrant box add precise64_ruby_puppet package.box
+vagrant destroy basebox
+rm package.box
 ```
-vagrant ssh web
-cd /vagrant
-sudo puppet apply manifests/site.pp
+
+It will speed up the other virtual machines setup.
+
+3. Add your SSH public key to users/manifests/init.pp
+
+```ruby
+  ssh_authorized_key { 'yourname':
+    ensure      => present,
+    user        => 'deployer',
+    key         => 'your key without the email address at the end nor the ssh-rsa at the beginning',
+    type        => 'ssh-rsa'
+  }
 ```
 
-and do the same for `app`, `db` and `worker`
