@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.define :web do |vm_config|
     vm_config.vm.box = 'precise64_ruby_puppet'
     vm_config.vm.hostname = "web"
-    vm_config.vm.network :private_network, ip: "33.33.13.2"
+    vm_config.vm.network :private_network, ip: "172.16.0.2"
     vm_config.vm.synced_folder ".", "/etc/puppet"
 
     vm_config.vm.provider "virtualbox" do |v|
@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   config.vm.define :db do |vm_config|
     vm_config.vm.box = 'precise64_ruby_puppet'
     vm_config.vm.hostname = "db"
-    vm_config.vm.network :private_network, ip: "33.33.13.3"
+    vm_config.vm.network :private_network, ip: "172.16.0.3"
     vm_config.vm.synced_folder ".", "/etc/puppet"
 
     vm_config.vm.provider "virtualbox" do |v|
@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
     config.vm.define "app#{i}".to_sym do |vm_config|
       vm_config.vm.box = 'precise64_ruby_puppet'
       vm_config.vm.hostname = "app#{i}"
-      vm_config.vm.network :private_network, ip: "33.33.13."+(3+i).to_s
+      vm_config.vm.network :private_network, ip: "172.16.0."+(3+i).to_s
       vm_config.vm.synced_folder ".", "/etc/puppet"
 
       vm_config.vm.provider "virtualbox" do |v|
@@ -78,7 +78,7 @@ Vagrant.configure("2") do |config|
   config.vm.define :test do |vm_config|
     vm_config.vm.box = 'precise64_ruby_puppet'
     vm_config.vm.hostname = "test"
-    vm_config.vm.network :private_network, ip: "33.33.13.30"
+    vm_config.vm.network :private_network, ip: "172.16.0.30"
     vm_config.vm.synced_folder ".", "/etc/puppet"
     vm_config.vm.network :forwarded_port, guest: 80, host: 4567 # redirect nginx port 80 to port 4567 on host
     config.vm.network :forwarded_port, guest: 22, host: 2250, id: "ssh"

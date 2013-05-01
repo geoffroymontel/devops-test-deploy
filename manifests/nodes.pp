@@ -1,9 +1,9 @@
 node basenode {
-  $web_ip_address = "33.33.13.2"
-  $db_ip_address = "33.33.13.3"
-  $app_ip_addresses = ["33.33.13.4", "33.33.13.5"]
-  $worker_ip_address = "33.33.13.6"
-  $subnetwork = "33.33.13.0/24"
+  $web_ip_address = "172.16.0.2"
+  $db_ip_address = "172.16.0.3"
+  $app_ip_addresses = ["172.16.0.4", "172.16.0.5"]
+  $worker_ip_address = "172.16.0.6"
+  $subnetwork = "172.16.0.0/24"
   $app_name = "devops-test-app"
   $app_password = "m0nst3rz"
 
@@ -40,7 +40,7 @@ node 'db' inherits basenode {
   }
 
   postgresql::pg_hba_rule { 'allow application network to access app database':
-    description => "Open up postgresql for access from 33.33.13.0/24",
+    description => "Open up postgresql for access from 172.16.0.0/24",
     type => "host",
     database => "${app_name}_production",
     user => "${app_name}",
