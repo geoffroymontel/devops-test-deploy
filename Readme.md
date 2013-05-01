@@ -13,18 +13,17 @@ And more to come & test
 * Install Virtualbox
 * Install Vagrant
 
-## Doing a base image with Vagrant
+## Making a Vagrant base image with Ruby & Puppet
 
 First, you have to make an Ubuntu 12.04TLS image with ruby 1.9.3 and puppet 3.1 installed.
 To do that :
 
-1. download a Ubuntu 12.04 TLS (Precise) box
+* download a Ubuntu 12.04 TLS (Precise) box
 ```bash
 vagrant box add lucid64 http://files.vagrantup.com/precise64.box
 ```
 
-2. Create your own base box. Basebox is a Precise64 box provisionned with `preinstall.sh`
-
+* Create your own base box. Basebox is a Precise64 box provisionned with `preinstall.sh`
 ```bash
 vagrant up basebox
 vagrant package basebox
@@ -35,7 +34,14 @@ rm package.box
 
 It will speed up the other virtual machines setup.
 
-3. Add your SSH public key to users/manifests/init.pp
+## Setting up your SSH keys
+
+* On your development machine, create a ssh key. Capistrano will use that key to ssh to your VM
+```bash
+ssh-keygen -t rsa -C "your_email@example.com"
+```
+
+* Add your SSH public key to users/manifests/init.pp
 
 ```ruby
   ssh_authorized_key { 'yourname':
@@ -46,3 +52,18 @@ It will speed up the other virtual machines setup.
   }
 ```
 
+## Running the server farm :)
+* Start
+```bash
+vagrant up web app1 db
+```
+
+* Stop
+```bash
+vagrant halt
+```
+
+* Destroy
+```bash
+vagrant destroy
+```
