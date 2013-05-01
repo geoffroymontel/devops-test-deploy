@@ -1,8 +1,8 @@
 node basenode {
   $web_ip_address = "33.33.13.2"
-  $app_ip_address = "33.33.13.3"
-  $db_ip_address = "33.33.13.4"
-  $worker_ip_address = "33.33.13.5"
+  $db_ip_address = "33.33.13.3"
+  $app_ip_addresses = ["33.33.13.4", "33.33.13.5"]
+  $worker_ip_address = "33.33.13.6"
   $subnetwork = "33.33.13.0/24"
   $app_name = "devops-test-app"
   $app_password = "m0nst3rz"

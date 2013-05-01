@@ -1,5 +1,7 @@
 upstream unicorn {
-  server <%= @app_ip_address %>:8080 fail_timeout=0;
+  <% @app_ip_addresses.each do |app_ip_address| %>
+  server <%= app_ip_address %>:8080 fail_timeout=0;
+  <% end %>
 }
 
 server {

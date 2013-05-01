@@ -55,7 +55,7 @@ ssh-keygen -t rsa -C "your_email@example.com"
 ## Running the server farm :)
 * Start
 ```bash
-vagrant up web app1 db
+vagrant up web db app1 app2
 ```
 
 * Stop
