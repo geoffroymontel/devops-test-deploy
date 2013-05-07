@@ -32,26 +32,7 @@ node 'app1', 'app2' inherits basenode {
 }
 
 node 'db' inherits basenode {
-  class { 'postgresql::server':
-    config_hash => {
-      'manage_redhat_firewall'     => true,
-      'listen_addresses'           => '*',
-    }
-  }
-
-  postgresql::pg_hba_rule { 'allow application network to access app database':
-    description => "Open up postgresql for access from 172.16.0.0/24",
-    type => "host",
-    database => "${app_name}_production",
-    user => "${app_name}",
-    address => "$subnetwork",
-    auth_method => "trust",
-  }
-
-  postgresql::db { "${app_name}_production":
-    user     => "${app_name}",
-    password => "${app_password}""
-  }
+  include railsappdb
 }
 
 node 'test' {

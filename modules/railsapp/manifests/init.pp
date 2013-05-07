@@ -21,8 +21,18 @@ class railsapp {
     provider  => gem
   }
 
-  package { 'libpq-dev':
-    ensure  => installed
+  # postgresql client library
+  # package { 'libpq-dev':
+  #   ensure  => installed
+  # }
+
+  # mysql client library
+  package { 'mysql-client':
+    ensure => installed
+  }
+
+  package { 'libmysqlclient-dev':
+    ensure => installed
   }
 
   file {

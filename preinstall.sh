@@ -41,8 +41,10 @@ fi
 echo "FYI, /usr/local/bin/ruby is now running ruby 1.9.3"
 echo "but Puppet uses ruby 1.8 which is installed in /usr/bin/ruby"
 
-# install module postgresql
-# if ! sudo puppet module list | grep puppetlabs-postgresql > /dev/null 2>&1; then
+# install modules
+# if ! sudo puppet module list | grep puppetlabs-mysql > /dev/null 2>&1; then
 #   echo "Installing puppetlabs/postgresql module"
 #   puppet module install puppetlabs/postgresql 
+#   echo "Installing puppetlabs/mysql module"
+#   puppet module install puppetlabs/mysql
 # fi
