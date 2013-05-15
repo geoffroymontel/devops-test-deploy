@@ -18,7 +18,8 @@ class railsapp {
   }
 
   package { "bundler":
-    provider  => gem
+    provider  => gem,
+    ensure    => latest
   }
 
   # postgresql client library

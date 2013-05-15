@@ -35,5 +35,39 @@ node 'db' inherits basenode {
   include railsappdb
 }
 
+node 'dev' {
+  $app_name = "devops-test-app"
+  $app_password = "password"
+
+  # ubuntu update
+  include ubuntu-update
+
+  # mysql setup
+  class { 'mysql::server':
+  }
+
+  mysql::db { "${app_name}_development":
+    user     => "${app_name}",
+    password => "${app_password}",
+    grant    => ['all'],
+  }
+
+  # nodejs
+  include nodejs
+  
+  # bundler and rails
+  package { "bundler":
+    provider  => gem,
+    ensure    => latest
+  }
+
+  package { "rails":
+    provider  => gem,
+    ensure    => latest
+  }
+
+}
+
 node 'test' {
 }
+

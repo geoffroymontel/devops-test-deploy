@@ -4,7 +4,7 @@
 The goal is to be able to deploy a Rails app to a cluster of machines consisting of
 - 1 Web instance running Nginx
 - 2 App instances running Unicorn
-- 1 DB instance running Postgresql
+- 1 DB instance running MySQL
 - 1 worker instance running Delayed Job
 
 And more to come & test
@@ -67,3 +67,15 @@ vagrant halt
 ```bash
 vagrant destroy
 ```
+
+## Running on AWS
+* Create a yaml file with your credential on `aws/aws_credentials.yml
+
+```yaml
+---
+access_key_id: fourisufhsfsfs
+secret_access_key: eumifnsdliuhdsnif
+region: eu-west-1
+```
+
+

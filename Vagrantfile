@@ -74,6 +74,25 @@ Vagrant.configure("2") do |config|
     vm_config.vm.provision :shell, :path => "preinstall.sh"
   end
 
+  config.vm.define :dev do |vm_config|
+    vm_config.vm.box = 'precise64_ruby_puppet'
+    vm_config.vm.hostname = "dev"
+    vm_config.vm.synced_folder ".", "/etc/puppet"
+    vm_config.vm.network :private_network, ip: "172.16.0.127"
+
+    vm_config.vm.provider "virtualbox" do |v|
+      v.name = "dev"
+      v.customize ["modifyvm", :id, "--memory", "256"]
+    end
+
+    vm_config.vm.provision :shell, :path => "preinstall.sh"
+
+    vm_config.vm.provision :puppet do |puppet|
+      puppet.manifests_path = "manifests"
+      puppet.manifest_file = "site.pp"
+    end
+  end
+
 =begin
   config.vm.define :test do |vm_config|
     vm_config.vm.box = 'precise64_ruby_puppet'
