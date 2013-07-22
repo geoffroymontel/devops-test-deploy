@@ -1,3 +1,7 @@
 .vagrant
 .DS_Store
 aws_credentials.yml
+etckeeper-commit-post
+etckeeper-commit-pre
+puppet.conf.dpkg-dist
+

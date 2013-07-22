@@ -68,14 +68,4 @@ vagrant halt
 vagrant destroy
 ```
 
-## Running on AWS
-* Create a yaml file with your credential on `aws/aws_credentials.yml
-
-```yaml
----
-access_key_id: fourisufhsfsfs
-secret_access_key: eumifnsdliuhdsnif
-region: eu-west-1
-```
-
 
