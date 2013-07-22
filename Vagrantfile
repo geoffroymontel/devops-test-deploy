@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--memory", "256"]
     end
 
-    vm_config.vm.provision :shell, :path => "preinstall.sh"
+    vm_config.vm.provision :shell, :path => "preinstall-puppet-ruby200.sh"
 
     vm_config.vm.provision :puppet do |puppet|
       puppet.manifests_path = "manifests"
@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--memory", "256"]
     end
 
-    vm_config.vm.provision :shell, :path => "preinstall.sh"
+    vm_config.vm.provision :shell, :path => "preinstall-puppet-ruby200.sh"
 
     vm_config.vm.provision :puppet do |puppet|
       puppet.manifests_path = "manifests"
@@ -52,7 +52,7 @@ Vagrant.configure("2") do |config|
         v.customize ["modifyvm", :id, "--memory", "256"]
       end
 
-      vm_config.vm.provision :shell, :path => "preinstall.sh"
+      vm_config.vm.provision :shell, :path => "preinstall-puppet-ruby200.sh"
 
       vm_config.vm.provision :puppet do |puppet|
         puppet.manifests_path = "manifests"
@@ -71,7 +71,7 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--memory", "256"]
     end
 
-    vm_config.vm.provision :shell, :path => "preinstall.sh"
+    vm_config.vm.provision :shell, :path => "preinstall-puppet-ruby200.sh"
   end
 
   config.vm.define :dev do |vm_config|
@@ -85,7 +85,7 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--memory", "256"]
     end
 
-    vm_config.vm.provision :shell, :path => "preinstall.sh"
+    vm_config.vm.provision :shell, :path => "preinstall-puppet-ruby200.sh"
 
     vm_config.vm.provision :puppet do |puppet|
       puppet.manifests_path = "manifests"
@@ -93,19 +93,15 @@ Vagrant.configure("2") do |config|
     end
   end
 
-=begin
   config.vm.define :test do |vm_config|
-    vm_config.vm.box = 'precise64_ruby_puppet'
+    vm_config.vm.box = 'precise64'
     vm_config.vm.hostname = "test"
     vm_config.vm.network :private_network, ip: "172.16.0.30"
     vm_config.vm.synced_folder ".", "/etc/puppet"
-    vm_config.vm.network :forwarded_port, guest: 80, host: 4567 # redirect nginx port 80 to port 4567 on host
-    config.vm.network :forwarded_port, guest: 22, host: 2250, id: "ssh"
 
     vm_config.vm.provider "virtualbox" do |v|
       v.name = "test"
       v.customize ["modifyvm", :id, "--memory", "256"]
     end
   end
-=end
 end
