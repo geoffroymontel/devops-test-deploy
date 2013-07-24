@@ -72,4 +72,7 @@ if ! which puppet > /dev/null 2>&1 || verlte `puppet --version` 3.0 > /dev/null 
   echo "Puppet installed"
 fi
 
+# echo "installing puppetlabs-mysql module"
+# puppet module install puppetlabs-mysql
+
 echo "Warning : system ruby is 1.8, use chruby ruby-2.0 to switch to ruby 2"

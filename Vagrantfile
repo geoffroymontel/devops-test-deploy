@@ -93,6 +93,7 @@ Vagrant.configure("2") do |config|
     end
   end
 
+=begin
   config.vm.define :test do |vm_config|
     vm_config.vm.box = 'precise64'
     vm_config.vm.hostname = "test"
@@ -104,4 +105,5 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--memory", "256"]
     end
   end
+=end
 end
